@@ -13,6 +13,7 @@ export default function TestPage() {
     const res = await fetch(`/api/test`);
     const result = await res.json();
     // Pass data to the page via props
+    console.log(result);
     return setData(result);
   }
 
