@@ -8,11 +8,8 @@ export const runtime = "edge";
 const app = new Hono().basePath("/api");
 
 app.get("/test", async (c) => {
-  //   const users = await prisma.users.findMany().withAccelerateInfo();
-  return c.json({
-    id: "aaa",
-    email: "adsfadsf",
-  });
+  const users = await prisma.users.findMany();
+  return c.json(users);
 });
 
 export const GET = handle(app);
