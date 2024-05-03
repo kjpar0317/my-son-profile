@@ -1,3 +1,23 @@
 {
-  "extends": "next/core-web-vitals"
+  "settings": {
+    "@typescript-eslint/parser": {
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
+  },
+  "plugins": ["@typescript-eslint", "drizzle"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "next/core-web-vitals"
+  ]
 }

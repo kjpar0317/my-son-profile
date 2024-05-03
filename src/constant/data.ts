@@ -15,38 +15,38 @@ export const items = [
   },
   {
     title: "2019-05-13",
-    cardTitle: "Pearl Harbor",
+    cardTitle: "Pearl Harbor222",
     media: {
       source: {
         url: Movie1,
         type: "mp4",
       },
       type: "VIDEO",
-      name: "Pearl Harbor",
+      name: "Pearl Harbor222",
     },
   },
   {
     title: "2019-05-15",
-    cardTitle: "Pearl Harbor",
+    cardTitle: "Pearl Harbor333",
     media: {
       source: {
         url: "https://www.youtube.com/embed/f6cz9gtMTeI",
         type: "mp4",
       },
       type: "VIDEO",
-      name: "Pearl Harbor",
+      name: "Pearl Harbor333",
     },
   },
   {
     title: "2019-05-18",
-    cardTitle: "Pearl Harbor",
+    cardTitle: "Pearl Harbor444",
     media: {
       source: {
         url: "https://www.youtube.com/embed/f6cz9gtMTeI",
         type: "mp4",
       },
       type: "VIDEO",
-      name: "Pearl Harbor",
+      name: "Pearl Harbor444",
     },
   },
 ];

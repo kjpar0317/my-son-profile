@@ -21,10 +21,40 @@ export default function HomePage(): ReactElement {
           <Chrono
             items={items}
             mode="HORIZONTAL"
-            cardWidth={450}
-            cardHeight={300}
+            cardWidth={800}
+            cardHeight={600}
             parseDetailsAsHTML
             slideShow
+            highlightCardsOnHover
+            disableInteraction={true}
+            enableLayoutSwitch={false}
+            enableQuickJump={false}
+            allowDynamicUpdate
+            // className="bg-base-200"
+            mediaSettings={{ align: "right", fit: "contain" }}
+            theme={{
+              // primary: 'red',
+              // secondary: 'blue',
+              cardBgColor: "bg-base-300",
+              // titleColor: 'black',
+              // titleColorActive: 'red',
+            }}
+            classNames={{
+              card: "bg-base-300 text-base-content",
+              cardMedia: "bg-base-200 text-base-content",
+              cardSubTitle: "bg-base-200 text-base-content",
+              cardText: "bg-base-200 text-base-content",
+              cardTitle: "bg-base-200 text-base-content",
+              controls: "bg-base-200 text-base-content",
+              title: "bg-base-200 text-base-content",
+            }}
+            buttonTexts={{
+              first: "처음",
+              last: "마지막",
+              next: "다음",
+              previous: "이전",
+              play: "재생",
+            }}
           />
         )}
       </div>
