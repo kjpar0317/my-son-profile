@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../prisma/generated/clint";
 
 // import { PrismaClient } from "../../prisma/generated/clint/edge";
 // import { PrismaClient } from "@prisma/client/edge";
