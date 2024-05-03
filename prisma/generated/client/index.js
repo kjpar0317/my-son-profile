@@ -130,7 +130,8 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "linux-musl-arm64-openssl-3.0.x"
+        "value": "windows",
+        "native": true
       }
     ],
     "previewFeatures": [
@@ -159,8 +160,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\r\n  provider = \"prisma-client-js\"\r\n  output   = \"./generated/client\"\r\n  binaryTargets = [\"linux-musl-arm64-openssl-3.0.x\"]\r\n  previewFeatures = [\"driverAdapters\"]\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url = env(\"DATABASE_URL\")// uses connection pooling\r\n//  directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\r\n}\r\n\r\nmodel users {\r\n  id        Int      @id @default(autoincrement())\r\n  name      String\r\n  email     String   @unique\r\n  image     String\r\n  createdAt DateTime @default(now())\r\n}",
-  "inlineSchemaHash": "1ffa4070d3d3a5c9bd1d8069fc5855484659ef34f35b9c817f0d1ba60577f1a8",
+  "inlineSchema": "generator client {\r\n  provider = \"prisma-client-js\"\r\n  output   = \"./generated/client\"\r\n//  binaryTargets = [\"linux-musl-arm64-openssl-3.0.x\"]\r\n  previewFeatures = [\"driverAdapters\"]\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url = env(\"DATABASE_URL\")// uses connection pooling\r\n//  directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\r\n}\r\n\r\nmodel users {\r\n  id        Int      @id @default(autoincrement())\r\n  name      String\r\n  email     String   @unique\r\n  image     String\r\n  createdAt DateTime @default(now())\r\n}",
+  "inlineSchemaHash": "1de69d5cf86fe0121430fd7b25702995ab5c42cff8a419c8d422f52004b57b0b",
   "copyEngine": true
 }
 
@@ -198,8 +199,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-linux-musl-arm64-openssl-3.0.x.so.node");
-path.join(process.cwd(), "prisma/generated/client/libquery_engine-linux-musl-arm64-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "prisma/generated/client/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/generated/client/schema.prisma")
