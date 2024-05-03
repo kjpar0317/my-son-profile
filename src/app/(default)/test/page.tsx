@@ -1,20 +1,20 @@
-console.log(process.env.NODE_ENV);
+"use client";
 
-async function getUsers() {
-  // Fetch data from external API
-  const res = await fetch(
-    process.env.NODE_ENV !== "production"
-      ? `http://localhost:3000/api/test`
-      : `https://my-son-profile.vercel.app/api/test`
-  );
-  const result = await res.json();
-  // Pass data to the page via props
-  return result;
-}
+import { useState, useEffect } from "react";
 
-export default async function TestPage() {
-  const users = await getUsers();
-  console.log(users);
+export default function TestPage() {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  async function getUsers() {
+    const res = await fetch(`/api/test`);
+    const result = await res.json();
+    // Pass data to the page via props
+    return setData(result);
+  }
 
   return <div>test</div>;
 }
