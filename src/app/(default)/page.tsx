@@ -47,7 +47,7 @@ export default function HomePage(): ReactElement {
             mediaHeight={450}
             parseDetailsAsHTML
             slideShow
-            slideItemDuration={8000}
+            slideItemDuration={7000}
             highlightCardsOnHover
             disableInteraction={true}
             enableLayoutSwitch={false}
