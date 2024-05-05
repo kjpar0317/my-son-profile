@@ -95,6 +95,14 @@ exports.Prisma.UsersScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TimelineScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  cardTitle: 'cardTitle',
+  media: 'media',
+  cardDetailedText: 'cardDetailedText'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -107,7 +115,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  users: 'users'
+  users: 'users',
+  timeline: 'timeline'
 };
 /**
  * Create the Client
@@ -149,7 +158,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "ciName": "Vercel",
   "inlineDatasources": {
     "db": {
@@ -159,13 +167,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\r\n  provider = \"prisma-client-js\"\r\n  output   = \"./generated/client\"\r\n//  binaryTargets = [\"linux-musl-arm64-openssl-3.0.x\"]\r\n  previewFeatures = [\"driverAdapters\"]\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url = env(\"DATABASE_URL\")// uses connection pooling\r\n//  directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\r\n}\r\n\r\nmodel users {\r\n  id        Int      @id @default(autoincrement())\r\n  name      String\r\n  email     String   @unique\r\n  image     String\r\n  createdAt DateTime @default(now())\r\n}",
-  "inlineSchemaHash": "1de69d5cf86fe0121430fd7b25702995ab5c42cff8a419c8d422f52004b57b0b",
+  "inlineSchema": "generator client {\r\n  provider = \"prisma-client-js\"\r\n  output   = \"./generated/client\"\r\n//  binaryTargets = [\"linux-musl-arm64-openssl-3.0.x\"]\r\n  previewFeatures = [\"driverAdapters\"]\r\n}\r\n\r\ndatasource db {\r\n  provider = \"postgresql\"\r\n  url = env(\"DATABASE_URL\")// uses connection pooling\r\n//  directUrl = env(\"POSTGRES_URL_NON_POOLING\") // uses a direct connection\r\n}\r\n\r\nmodel users {\r\n  id        Int      @id @default(autoincrement())\r\n  name      String\r\n  email     String   @unique\r\n  image     String\r\n  createdAt DateTime @default(now())\r\n}\r\n\r\nmodel timeline {\r\n  id                Int @id @default(autoincrement())\r\n  title             String\r\n  cardTitle         String\r\n  media             String\r\n  cardDetailedText  String \r\n}",
+  "inlineSchemaHash": "2f5392637dcb18a9b990f917ba27438a73c9715b9eeff81cd41fb0d8f654757b",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"users\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"image\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"timeline\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cardTitle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"media\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cardDetailedText\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: () => require('./query_engine_bg.js'),

@@ -4,18 +4,30 @@ import type { ReactElement } from "react";
 
 import { useState, useEffect } from "react";
 import { Chrono } from "react-chrono";
+import useSound from "use-sound";
 
 import { items } from "@/constant/data";
+import BgVideo from "@/assets/videos/background.mp4";
+import BgSound from "@/assets/sounds/mistyMoon.mp3";
 
 export default function HomePage(): ReactElement {
   const [isClient, setIsClient] = useState(false);
+  const [play] = useSound(BgSound);
 
   useEffect(() => {
+    play();
     setIsClient(true); // Component has mounted, update state to trigger re-render
-  }, []);
+  }, [play]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <video
+        src={BgVideo}
+        autoPlay
+        loop
+        muted
+        className="w-full h-full object-cover absolute top-0"
+      />
       <div className="relative w-full flex">
         {isClient && (
           <Chrono

@@ -38,6 +38,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.3.1(react@18.3.1)
+  use-sound:
+    specifier: ^4.0.1
+    version: 4.0.1(react@18.3.1)
   zod:
     specifier: ^3.23.5
     version: 3.23.5
@@ -2658,6 +2661,10 @@ packages:
     engines: {node: '>=16.0.0'}
     dev: false
 
+  /howler@2.2.4:
+    resolution: {integrity: sha512-iARIBPgcQrwtEr+tALF+rapJ8qSc+Set2GJQl7xT1MQzWaVkFebdJhR3alVlSiUf5U7nAANKuj3aWpwerocD5w==}
+    dev: false
+
   /https-browserify@1.0.0:
     resolution: {integrity: sha512-J+FkSdyD+0mA0N+81tMotaRMfSL9SGi+xpD3T6YApKsc3bGSXJlfXri3VyFOeYkfLRQisDk1W+jIFFKBeUBbBg==}
     dev: false
@@ -5032,6 +5039,15 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
     dependencies:
+      react: 18.3.1
+    dev: false
+
+  /use-sound@4.0.1(react@18.3.1):
+    resolution: {integrity: sha512-hykJ86kNcu6y/FzlSHcQxhjSGMslZx2WlfLpZNoPbvueakv4OF3xPxEtGV2YmculrIaH0tPp9LtG4jgy17xMWg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      howler: 2.2.4
       react: 18.3.1
     dev: false
 

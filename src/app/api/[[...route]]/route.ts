@@ -8,8 +8,8 @@ import prisma from "@/lib/prisma";
 const app = new Hono().basePath("/api");
 
 app.get("/test", async (c) => {
-  const users = await prisma.users.findMany();
-  return c.json(users);
+  const timelines = await prisma.timeline.findMany();
+  return c.json(timelines);
 });
 
 export const GET = handle(app);

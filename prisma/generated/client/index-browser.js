@@ -127,6 +127,14 @@ exports.Prisma.UsersScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TimelineScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  cardTitle: 'cardTitle',
+  media: 'media',
+  cardDetailedText: 'cardDetailedText'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -139,7 +147,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  users: 'users'
+  users: 'users',
+  timeline: 'timeline'
 };
 
 /**

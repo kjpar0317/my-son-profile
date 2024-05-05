@@ -18,3 +18,11 @@ model users {
   image     String
   createdAt DateTime @default(now())
 }
+
+model timeline {
+  id                Int @id @default(autoincrement())
+  title             String
+  cardTitle         String
+  media             String
+  cardDetailedText  String 
+}

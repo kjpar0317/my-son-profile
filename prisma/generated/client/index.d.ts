@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
+/**
+ * Model timeline
+ * 
+ */
+export type timeline = $Result.DefaultSelection<Prisma.$timelinePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -150,6 +155,16 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs>;
+
+  /**
+   * `prisma.timeline`: Exposes CRUD operations for the **timeline** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Timelines
+    * const timelines = await prisma.timeline.findMany()
+    * ```
+    */
+  get timeline(): Prisma.timelineDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -627,7 +642,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    users: 'users'
+    users: 'users',
+    timeline: 'timeline'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +660,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'users'
+      modelProps: 'users' | 'timeline'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -711,6 +727,72 @@ export namespace Prisma {
           count: {
             args: Prisma.usersCountArgs<ExtArgs>,
             result: $Utils.Optional<UsersCountAggregateOutputType> | number
+          }
+        }
+      }
+      timeline: {
+        payload: Prisma.$timelinePayload<ExtArgs>
+        fields: Prisma.timelineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.timelineFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.timelineFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>
+          }
+          findFirst: {
+            args: Prisma.timelineFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.timelineFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>
+          }
+          findMany: {
+            args: Prisma.timelineFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>[]
+          }
+          create: {
+            args: Prisma.timelineCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>
+          }
+          createMany: {
+            args: Prisma.timelineCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.timelineDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>
+          }
+          update: {
+            args: Prisma.timelineUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>
+          }
+          deleteMany: {
+            args: Prisma.timelineDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.timelineUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.timelineUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$timelinePayload>
+          }
+          aggregate: {
+            args: Prisma.TimelineAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateTimeline>
+          }
+          groupBy: {
+            args: Prisma.timelineGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<TimelineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.timelineCountArgs<ExtArgs>,
+            result: $Utils.Optional<TimelineCountAggregateOutputType> | number
           }
         }
       }
@@ -1769,6 +1851,897 @@ export namespace Prisma {
 
 
   /**
+   * Model timeline
+   */
+
+  export type AggregateTimeline = {
+    _count: TimelineCountAggregateOutputType | null
+    _avg: TimelineAvgAggregateOutputType | null
+    _sum: TimelineSumAggregateOutputType | null
+    _min: TimelineMinAggregateOutputType | null
+    _max: TimelineMaxAggregateOutputType | null
+  }
+
+  export type TimelineAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type TimelineSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type TimelineMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    cardTitle: string | null
+    media: string | null
+    cardDetailedText: string | null
+  }
+
+  export type TimelineMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    cardTitle: string | null
+    media: string | null
+    cardDetailedText: string | null
+  }
+
+  export type TimelineCountAggregateOutputType = {
+    id: number
+    title: number
+    cardTitle: number
+    media: number
+    cardDetailedText: number
+    _all: number
+  }
+
+
+  export type TimelineAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type TimelineSumAggregateInputType = {
+    id?: true
+  }
+
+  export type TimelineMinAggregateInputType = {
+    id?: true
+    title?: true
+    cardTitle?: true
+    media?: true
+    cardDetailedText?: true
+  }
+
+  export type TimelineMaxAggregateInputType = {
+    id?: true
+    title?: true
+    cardTitle?: true
+    media?: true
+    cardDetailedText?: true
+  }
+
+  export type TimelineCountAggregateInputType = {
+    id?: true
+    title?: true
+    cardTitle?: true
+    media?: true
+    cardDetailedText?: true
+    _all?: true
+  }
+
+  export type TimelineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which timeline to aggregate.
+     */
+    where?: timelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of timelines to fetch.
+     */
+    orderBy?: timelineOrderByWithRelationInput | timelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: timelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` timelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` timelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned timelines
+    **/
+    _count?: true | TimelineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TimelineAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TimelineSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TimelineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TimelineMaxAggregateInputType
+  }
+
+  export type GetTimelineAggregateType<T extends TimelineAggregateArgs> = {
+        [P in keyof T & keyof AggregateTimeline]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTimeline[P]>
+      : GetScalarType<T[P], AggregateTimeline[P]>
+  }
+
+
+
+
+  export type timelineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: timelineWhereInput
+    orderBy?: timelineOrderByWithAggregationInput | timelineOrderByWithAggregationInput[]
+    by: TimelineScalarFieldEnum[] | TimelineScalarFieldEnum
+    having?: timelineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TimelineCountAggregateInputType | true
+    _avg?: TimelineAvgAggregateInputType
+    _sum?: TimelineSumAggregateInputType
+    _min?: TimelineMinAggregateInputType
+    _max?: TimelineMaxAggregateInputType
+  }
+
+  export type TimelineGroupByOutputType = {
+    id: number
+    title: string
+    cardTitle: string
+    media: string
+    cardDetailedText: string
+    _count: TimelineCountAggregateOutputType | null
+    _avg: TimelineAvgAggregateOutputType | null
+    _sum: TimelineSumAggregateOutputType | null
+    _min: TimelineMinAggregateOutputType | null
+    _max: TimelineMaxAggregateOutputType | null
+  }
+
+  type GetTimelineGroupByPayload<T extends timelineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TimelineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TimelineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TimelineGroupByOutputType[P]>
+            : GetScalarType<T[P], TimelineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type timelineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    cardTitle?: boolean
+    media?: boolean
+    cardDetailedText?: boolean
+  }, ExtArgs["result"]["timeline"]>
+
+  export type timelineSelectScalar = {
+    id?: boolean
+    title?: boolean
+    cardTitle?: boolean
+    media?: boolean
+    cardDetailedText?: boolean
+  }
+
+
+
+  export type $timelinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "timeline"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      title: string
+      cardTitle: string
+      media: string
+      cardDetailedText: string
+    }, ExtArgs["result"]["timeline"]>
+    composites: {}
+  }
+
+
+  type timelineGetPayload<S extends boolean | null | undefined | timelineDefaultArgs> = $Result.GetResult<Prisma.$timelinePayload, S>
+
+  type timelineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<timelineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TimelineCountAggregateInputType | true
+    }
+
+  export interface timelineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['timeline'], meta: { name: 'timeline' } }
+    /**
+     * Find zero or one Timeline that matches the filter.
+     * @param {timelineFindUniqueArgs} args - Arguments to find a Timeline
+     * @example
+     * // Get one Timeline
+     * const timeline = await prisma.timeline.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends timelineFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, timelineFindUniqueArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Timeline that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {timelineFindUniqueOrThrowArgs} args - Arguments to find a Timeline
+     * @example
+     * // Get one Timeline
+     * const timeline = await prisma.timeline.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends timelineFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, timelineFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Timeline that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {timelineFindFirstArgs} args - Arguments to find a Timeline
+     * @example
+     * // Get one Timeline
+     * const timeline = await prisma.timeline.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends timelineFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, timelineFindFirstArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Timeline that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {timelineFindFirstOrThrowArgs} args - Arguments to find a Timeline
+     * @example
+     * // Get one Timeline
+     * const timeline = await prisma.timeline.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends timelineFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, timelineFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Timelines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {timelineFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Timelines
+     * const timelines = await prisma.timeline.findMany()
+     * 
+     * // Get first 10 Timelines
+     * const timelines = await prisma.timeline.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const timelineWithIdOnly = await prisma.timeline.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends timelineFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, timelineFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Timeline.
+     * @param {timelineCreateArgs} args - Arguments to create a Timeline.
+     * @example
+     * // Create one Timeline
+     * const Timeline = await prisma.timeline.create({
+     *   data: {
+     *     // ... data to create a Timeline
+     *   }
+     * })
+     * 
+    **/
+    create<T extends timelineCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, timelineCreateArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Timelines.
+     *     @param {timelineCreateManyArgs} args - Arguments to create many Timelines.
+     *     @example
+     *     // Create many Timelines
+     *     const timeline = await prisma.timeline.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends timelineCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, timelineCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Timeline.
+     * @param {timelineDeleteArgs} args - Arguments to delete one Timeline.
+     * @example
+     * // Delete one Timeline
+     * const Timeline = await prisma.timeline.delete({
+     *   where: {
+     *     // ... filter to delete one Timeline
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends timelineDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, timelineDeleteArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Timeline.
+     * @param {timelineUpdateArgs} args - Arguments to update one Timeline.
+     * @example
+     * // Update one Timeline
+     * const timeline = await prisma.timeline.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends timelineUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, timelineUpdateArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Timelines.
+     * @param {timelineDeleteManyArgs} args - Arguments to filter Timelines to delete.
+     * @example
+     * // Delete a few Timelines
+     * const { count } = await prisma.timeline.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends timelineDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, timelineDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Timelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {timelineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Timelines
+     * const timeline = await prisma.timeline.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends timelineUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, timelineUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Timeline.
+     * @param {timelineUpsertArgs} args - Arguments to update or create a Timeline.
+     * @example
+     * // Update or create a Timeline
+     * const timeline = await prisma.timeline.upsert({
+     *   create: {
+     *     // ... data to create a Timeline
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Timeline we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends timelineUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, timelineUpsertArgs<ExtArgs>>
+    ): Prisma__timelineClient<$Result.GetResult<Prisma.$timelinePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Timelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {timelineCountArgs} args - Arguments to filter Timelines to count.
+     * @example
+     * // Count the number of Timelines
+     * const count = await prisma.timeline.count({
+     *   where: {
+     *     // ... the filter for the Timelines we want to count
+     *   }
+     * })
+    **/
+    count<T extends timelineCountArgs>(
+      args?: Subset<T, timelineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TimelineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Timeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TimelineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TimelineAggregateArgs>(args: Subset<T, TimelineAggregateArgs>): Prisma.PrismaPromise<GetTimelineAggregateType<T>>
+
+    /**
+     * Group by Timeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {timelineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends timelineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: timelineGroupByArgs['orderBy'] }
+        : { orderBy?: timelineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, timelineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTimelineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the timeline model
+   */
+  readonly fields: timelineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for timeline.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__timelineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the timeline model
+   */ 
+  interface timelineFieldRefs {
+    readonly id: FieldRef<"timeline", 'Int'>
+    readonly title: FieldRef<"timeline", 'String'>
+    readonly cardTitle: FieldRef<"timeline", 'String'>
+    readonly media: FieldRef<"timeline", 'String'>
+    readonly cardDetailedText: FieldRef<"timeline", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * timeline findUnique
+   */
+  export type timelineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * Filter, which timeline to fetch.
+     */
+    where: timelineWhereUniqueInput
+  }
+
+  /**
+   * timeline findUniqueOrThrow
+   */
+  export type timelineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * Filter, which timeline to fetch.
+     */
+    where: timelineWhereUniqueInput
+  }
+
+  /**
+   * timeline findFirst
+   */
+  export type timelineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * Filter, which timeline to fetch.
+     */
+    where?: timelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of timelines to fetch.
+     */
+    orderBy?: timelineOrderByWithRelationInput | timelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for timelines.
+     */
+    cursor?: timelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` timelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` timelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of timelines.
+     */
+    distinct?: TimelineScalarFieldEnum | TimelineScalarFieldEnum[]
+  }
+
+  /**
+   * timeline findFirstOrThrow
+   */
+  export type timelineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * Filter, which timeline to fetch.
+     */
+    where?: timelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of timelines to fetch.
+     */
+    orderBy?: timelineOrderByWithRelationInput | timelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for timelines.
+     */
+    cursor?: timelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` timelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` timelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of timelines.
+     */
+    distinct?: TimelineScalarFieldEnum | TimelineScalarFieldEnum[]
+  }
+
+  /**
+   * timeline findMany
+   */
+  export type timelineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * Filter, which timelines to fetch.
+     */
+    where?: timelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of timelines to fetch.
+     */
+    orderBy?: timelineOrderByWithRelationInput | timelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing timelines.
+     */
+    cursor?: timelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` timelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` timelines.
+     */
+    skip?: number
+    distinct?: TimelineScalarFieldEnum | TimelineScalarFieldEnum[]
+  }
+
+  /**
+   * timeline create
+   */
+  export type timelineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * The data needed to create a timeline.
+     */
+    data: XOR<timelineCreateInput, timelineUncheckedCreateInput>
+  }
+
+  /**
+   * timeline createMany
+   */
+  export type timelineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many timelines.
+     */
+    data: timelineCreateManyInput | timelineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * timeline update
+   */
+  export type timelineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * The data needed to update a timeline.
+     */
+    data: XOR<timelineUpdateInput, timelineUncheckedUpdateInput>
+    /**
+     * Choose, which timeline to update.
+     */
+    where: timelineWhereUniqueInput
+  }
+
+  /**
+   * timeline updateMany
+   */
+  export type timelineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update timelines.
+     */
+    data: XOR<timelineUpdateManyMutationInput, timelineUncheckedUpdateManyInput>
+    /**
+     * Filter which timelines to update
+     */
+    where?: timelineWhereInput
+  }
+
+  /**
+   * timeline upsert
+   */
+  export type timelineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * The filter to search for the timeline to update in case it exists.
+     */
+    where: timelineWhereUniqueInput
+    /**
+     * In case the timeline found by the `where` argument doesn't exist, create a new timeline with this data.
+     */
+    create: XOR<timelineCreateInput, timelineUncheckedCreateInput>
+    /**
+     * In case the timeline was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<timelineUpdateInput, timelineUncheckedUpdateInput>
+  }
+
+  /**
+   * timeline delete
+   */
+  export type timelineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+    /**
+     * Filter which timeline to delete.
+     */
+    where: timelineWhereUniqueInput
+  }
+
+  /**
+   * timeline deleteMany
+   */
+  export type timelineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which timelines to delete
+     */
+    where?: timelineWhereInput
+  }
+
+  /**
+   * timeline without action
+   */
+  export type timelineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the timeline
+     */
+    select?: timelineSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1791,6 +2764,17 @@ export namespace Prisma {
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+  export const TimelineScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    cardTitle: 'cardTitle',
+    media: 'media',
+    cardDetailedText: 'cardDetailedText'
+  };
+
+  export type TimelineScalarFieldEnum = (typeof TimelineScalarFieldEnum)[keyof typeof TimelineScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1927,6 +2911,60 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"users"> | Date | string
   }
 
+  export type timelineWhereInput = {
+    AND?: timelineWhereInput | timelineWhereInput[]
+    OR?: timelineWhereInput[]
+    NOT?: timelineWhereInput | timelineWhereInput[]
+    id?: IntFilter<"timeline"> | number
+    title?: StringFilter<"timeline"> | string
+    cardTitle?: StringFilter<"timeline"> | string
+    media?: StringFilter<"timeline"> | string
+    cardDetailedText?: StringFilter<"timeline"> | string
+  }
+
+  export type timelineOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    cardTitle?: SortOrder
+    media?: SortOrder
+    cardDetailedText?: SortOrder
+  }
+
+  export type timelineWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: timelineWhereInput | timelineWhereInput[]
+    OR?: timelineWhereInput[]
+    NOT?: timelineWhereInput | timelineWhereInput[]
+    title?: StringFilter<"timeline"> | string
+    cardTitle?: StringFilter<"timeline"> | string
+    media?: StringFilter<"timeline"> | string
+    cardDetailedText?: StringFilter<"timeline"> | string
+  }, "id">
+
+  export type timelineOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    cardTitle?: SortOrder
+    media?: SortOrder
+    cardDetailedText?: SortOrder
+    _count?: timelineCountOrderByAggregateInput
+    _avg?: timelineAvgOrderByAggregateInput
+    _max?: timelineMaxOrderByAggregateInput
+    _min?: timelineMinOrderByAggregateInput
+    _sum?: timelineSumOrderByAggregateInput
+  }
+
+  export type timelineScalarWhereWithAggregatesInput = {
+    AND?: timelineScalarWhereWithAggregatesInput | timelineScalarWhereWithAggregatesInput[]
+    OR?: timelineScalarWhereWithAggregatesInput[]
+    NOT?: timelineScalarWhereWithAggregatesInput | timelineScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"timeline"> | number
+    title?: StringWithAggregatesFilter<"timeline"> | string
+    cardTitle?: StringWithAggregatesFilter<"timeline"> | string
+    media?: StringWithAggregatesFilter<"timeline"> | string
+    cardDetailedText?: StringWithAggregatesFilter<"timeline"> | string
+  }
+
   export type usersCreateInput = {
     name: string
     email: string
@@ -1978,6 +3016,59 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type timelineCreateInput = {
+    title: string
+    cardTitle: string
+    media: string
+    cardDetailedText: string
+  }
+
+  export type timelineUncheckedCreateInput = {
+    id?: number
+    title: string
+    cardTitle: string
+    media: string
+    cardDetailedText: string
+  }
+
+  export type timelineUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    cardTitle?: StringFieldUpdateOperationsInput | string
+    media?: StringFieldUpdateOperationsInput | string
+    cardDetailedText?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type timelineUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    cardTitle?: StringFieldUpdateOperationsInput | string
+    media?: StringFieldUpdateOperationsInput | string
+    cardDetailedText?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type timelineCreateManyInput = {
+    id?: number
+    title: string
+    cardTitle: string
+    media: string
+    cardDetailedText: string
+  }
+
+  export type timelineUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    cardTitle?: StringFieldUpdateOperationsInput | string
+    media?: StringFieldUpdateOperationsInput | string
+    cardDetailedText?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type timelineUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    cardTitle?: StringFieldUpdateOperationsInput | string
+    media?: StringFieldUpdateOperationsInput | string
+    cardDetailedText?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2095,6 +3186,38 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type timelineCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    cardTitle?: SortOrder
+    media?: SortOrder
+    cardDetailedText?: SortOrder
+  }
+
+  export type timelineAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type timelineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    cardTitle?: SortOrder
+    media?: SortOrder
+    cardDetailedText?: SortOrder
+  }
+
+  export type timelineMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    cardTitle?: SortOrder
+    media?: SortOrder
+    cardDetailedText?: SortOrder
+  }
+
+  export type timelineSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -2216,6 +3339,10 @@ export namespace Prisma {
      * @deprecated Use usersDefaultArgs instead
      */
     export type usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = usersDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use timelineDefaultArgs instead
+     */
+    export type timelineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = timelineDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
