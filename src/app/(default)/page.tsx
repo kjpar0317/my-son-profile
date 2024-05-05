@@ -6,21 +6,30 @@ import { useState, useEffect } from "react";
 import { Chrono } from "react-chrono";
 import useSound from "use-sound";
 
-import { items } from "@/constant/data";
+import { convertTimeline } from "@/util/timeline-utils";
 import BgVideo from "@/assets/videos/background.mp4";
 import BgSound from "@/assets/sounds/mistyMoon.mp3";
 
 export default function HomePage(): ReactElement {
   const [isClient, setIsClient] = useState(false);
-  const [play] = useSound(BgSound);
+  const [timelines, setTimelines] = useState([]);
+  const [play, { stop }] = useSound(BgSound);
 
   useEffect(() => {
+    stop();
     play();
+    getTimelines();
     setIsClient(true); // Component has mounted, update state to trigger re-render
-  }, [play]);
+  }, [play, stop]);
+
+  async function getTimelines() {
+    const res = await fetch(`/api/timeline`);
+    const result = await res.json();
+    return setTimelines(result);
+  }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between p-14">
       <video
         src={BgVideo}
         autoPlay
@@ -29,36 +38,32 @@ export default function HomePage(): ReactElement {
         className="w-full h-full object-cover absolute top-0"
       />
       <div className="relative w-full flex">
-        {isClient && (
+        {isClient && timelines && (
           <Chrono
-            items={items}
+            items={convertTimeline(timelines)}
             mode="HORIZONTAL"
             cardWidth={800}
-            cardHeight={600}
+            cardHeight={400}
+            mediaHeight={450}
             parseDetailsAsHTML
             slideShow
+            slideItemDuration={8000}
             highlightCardsOnHover
             disableInteraction={true}
             enableLayoutSwitch={false}
-            enableQuickJump={false}
+            enableQuickJump={true}
             allowDynamicUpdate
             // className="bg-base-200"
-            mediaSettings={{ align: "right", fit: "contain" }}
+            mediaSettings={{ align: "right", fit: "cover" }}
             theme={{
-              // primary: 'red',
-              // secondary: 'blue',
-              cardBgColor: "bg-base-300",
-              // titleColor: 'black',
-              // titleColorActive: 'red',
-            }}
-            classNames={{
-              card: "bg-base-300 text-base-content",
-              cardMedia: "bg-base-200 text-base-content",
-              cardSubTitle: "bg-base-200 text-base-content",
-              cardText: "bg-base-200 text-base-content",
-              cardTitle: "bg-base-200 text-base-content",
-              controls: "bg-base-200 text-base-content",
-              title: "bg-base-200 text-base-content",
+              primary: "#865E92",
+              secondary: "#E1FAC5",
+              cardBgColor: "#E9E2EB",
+              cardForeColor: "#E9E2EB",
+              titleColor: "#9DCA98",
+              titleColorActive: "red",
+              cardTitleColor: "#485639",
+              cardSubtitleColor: "#485639",
             }}
             buttonTexts={{
               first: "처음",

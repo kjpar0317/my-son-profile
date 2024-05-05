@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 
 const app = new Hono().basePath("/api");
 
-app.get("/test", async (c) => {
+app.get("/timeline", async (c) => {
   const timelines = await prisma.timeline.findMany();
   return c.json(timelines);
 });
