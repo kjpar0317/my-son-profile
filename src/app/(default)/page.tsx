@@ -42,10 +42,10 @@ export default function HomePage(): ReactElement {
           <Chrono
             items={convertTimeline(timelines)}
             mode="HORIZONTAL"
-            cardWidth={450}
-            cardHeight={600}
+            cardWidth={350}
+            cardHeight={550}
             // itemWidth={500}
-            mediaHeight={450}
+            mediaHeight={400}
             parseDetailsAsHTML
             slideShow
             slideItemDuration={5000}
