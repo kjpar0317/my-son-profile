@@ -4,23 +4,23 @@ import type { ReactElement } from "react";
 
 import { useState, useEffect } from "react";
 import { Chrono } from "react-chrono";
-// import useSound from "use-sound";
+import useSound from "use-sound";
 
 import { convertTimeline } from "@/util/timeline-utils";
 import BgVideo from "@/assets/videos/background.mp4";
-// import BgSound from "@/assets/sounds/moonEmbracingTheSun.mp3";
+import BgSound from "@/assets/sounds/moonEmbracingTheSun.mp3";
 
 export default function HomePage(): ReactElement {
   const [isClient, setIsClient] = useState(false);
   const [timelines, setTimelines] = useState([]);
-  // const [play, { stop }] = useSound(BgSound);
+  const [play, { stop }] = useSound(BgSound);
 
   useEffect(() => {
-    // stop();
-    // play();
+    stop();
+    play();
     getTimelines();
     setIsClient(true); // Component has mounted, update state to trigger re-render
-  }, []);
+  }, [play, stop]);
 
   async function getTimelines() {
     const res = await fetch(`/api/timeline`);
@@ -41,11 +41,11 @@ export default function HomePage(): ReactElement {
         {isClient && timelines && (
           <Chrono
             items={convertTimeline(timelines)}
-            mode="VERTICAL_ALTERNATING"
-            // cardWidth={600}
-            // cardHeight={400}
+            mode="HORIZONTAL"
+            cardWidth={450}
+            cardHeight={600}
             // itemWidth={500}
-            // mediaHeight={450}
+            mediaHeight={450}
             parseDetailsAsHTML
             slideShow
             slideItemDuration={5000}
@@ -54,9 +54,10 @@ export default function HomePage(): ReactElement {
             enableLayoutSwitch={false}
             enableQuickJump={false}
             allowDynamicUpdate
-            // showAllCardsHorizontal
+            showAllCardsHorizontal
             // scrollable
-            mediaSettings={{ align: "right", fit: "cover" }}
+            mediaSettings={{ align: "right", fit: "contain" }}
+            textDensity="LOW"
             className="bg-black"
             theme={{
               primary: "#865E92",
